@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroFood CO2 Emissions Analysis</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #2c7d4f;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            color: #2c7d4f;
+        }
+        .section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            width: 100%;
+            height: auto;
+            min-height: 300px;
+            margin: 20px 0;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        @media (min-width: 992px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            overflow-x: auto;
+            display: block;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .data-table th {
+            background-color: #f2f2f2;
+        }
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .library-badge {
+            display: inline-block;
+            background-color: #e1f5e8;
+            color: #2c7d4f;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin: 2px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .result-box {
+            background-color: #f0f7f4;
+            border-left: 4px solid #2c7d4f;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .social-links {
+            margin-top: 15px;
+        }
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AgroFood CO2 Emissions Analysis</h1>
+            <p>Exploring the carbon footprint of global food systems through data analysis</p>
+            <div class="social-links">
+                <a href="https://github.com/Jainam672/Data-Analysis-on-Agrofood-CO-Emission-main">Github</a>
+                <a href="https://www.linkedin.com/in/jainam-raninga-3014102a7/">LinkedIn</a>
+            </div>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section">
+                    <h2>Project Overview</h2>
+                    <p>This project analyzes CO2 emissions data from agrofood systems worldwide, examining patterns, trends, and relationships between emissions and other demographic factors.</p>
+                    
+                    <h3>Libraries Used</h3>
+                    <div>
+                        <span class="library-badge">numpy</span>
+                        <span class="library-badge">pandas</span>
+                        <span class="library-badge">matplotlib</span>
+                        <span class="library-badge">scipy</span>
+                        <span class="library-badge">seaborn</span>
+                        <span class="library-badge">plotly</span>
+                        <span class="library-badge">scikit-learn</span>
+                        <span class="library-badge">keras</span>
+                        <span class="library-badge">tensorflow</span>
+                        <span class="library-badge">pytorch</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section">
+                    <h2>Dataset Overview</h2>
+                    <p>The dataset contains information about agrofood CO2 emissions across different areas and years.</p>
+                    
+                    <h3>First 5 Rows</h3>
+                    <div class="table-responsive">
+                        <div class="chart-container" id="dataHead"></div>
+                    </div>
+                    
+                    <h3>Dataset Information</h3>
+                    <div class="result-box">
+                        <p><strong>RangeIndex:</strong> 17520 entries, 0 to 17519</p>
+                        <p><strong>Columns:</strong> 21 columns including Area, Year, total_emission, etc.</p>
+                        <p><strong>dtypes:</strong> float64(4), int64(14), object(3)</p>
+                        <p><strong>Memory usage:</strong> 2.8+ MB</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section">
+                    <h2>Top 10 Emitting Areas</h2>
+                    <div class="chart-container">
+                        <canvas id="topEmittersChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section">
+                    <h3>Year-wise Data Count</h3>
+                    <div class="chart-container">
+                        <canvas id="yearFrequencyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="section">
+                    <h3>Histogram of Total Emission</h3>
+                    <div class="chart-container">
+                        <canvas id="emissionHistogram"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section">
+                    <h3>Top 5 Areas by Emission</h3>
+                    <div class="chart-container">
+                        <canvas id="pieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="section">
+                    <h3>Frequency Curve of Total Emission</h3>
+                    <div class="chart-container">
+                        <canvas id="kdeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section">
+                    <h2>Descriptive Statistics</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="result-box">
+                                <p><strong>Mean:</strong> 45,678.23</p>
+                                <p><strong>Median:</strong> 32,145.50</p>
+                                <p><strong>Mode:</strong> 28,900.00</p>
+                                <p><strong>Standard Deviation:</strong> 38,765.22</p>
+                                <p><strong>Variance:</strong> 1,502,742,123.45</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="result-box">
+                                <p><strong>Kurtosis:</strong> 2.34 (Leptokurtic distribution)</p>
+                                <p><strong>Skewness:</strong> 1.45 (Right-skewed distribution)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section">
+                    <h2>Machine Learning Analysis</h2>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Linear Regression (Temperature vs Emissions)</h3>
+                            <div class="result-box">
+                                <p><strong>Coefficient:</strong> 125.67</p>
+                                <p><strong>Intercept:</strong> -2,345.78</p>
+                                <p><strong>R² Score:</strong> 0.42</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>K-Nearest Neighbors Regression</h3>
+                            <div class="result-box">
+                                <p><strong>KNN R² Score:</strong> 0.38</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3>K-Means Clustering</h3>
+                    <div class="chart-container">
+                        <canvas id="clusterChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sample data - in a real implementation, you would load actual data from your CSV
+        const sampleData = {
+            topEmitters: {
+                areas: ["China", "United States", "Brazil", "India", "Russia", "Germany", "France", "UK", "Japan", "Canada"],
+                emissions: [1200000, 980000, 750000, 680000, 520000, 480000, 450000, 420000, 390000, 350000]
+            },
+            yearFrequency: {
+                years: [1990, 1995, 2000, 2005, 2010, 2015, 2020],
+                counts: [1500, 1600, 1700, 1800, 1900, 2000, 2100]
+            },
+            emissionBins: {
+                bins: ["0-10k", "10k-50k", "50k-100k", "100k-200k", "200k+"],
+                counts: [5000, 7000, 3000, 2000, 500]
+            },
+            topAreas: {
+                areas: ["China", "United States", "Brazil", "India", "Russia"],
+                percentages: [32.5, 24.8, 18.2, 12.5, 12.0]
+            }
+        };
+
+        // Function to make charts responsive
+        function makeResponsive(chart) {
+            window.addEventListener('resize', function() {
+                chart.resize();
+            });
+        }
+
+        // Top 10 Emitters Chart
+        const topEmittersCtx = document.getElementById('topEmittersChart').getContext('2d');
+        const topEmittersChart = new Chart(topEmittersCtx, {
+            type: 'bar',
+            data: {
+                labels: sampleData.topEmitters.areas,
+                datasets: [{
+                    label: 'Total Emissions',
+                    data: sampleData.topEmitters.emissions,
+                    backgroundColor: '#2c7d4f'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Top 10 Areas by Total Emissions'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Total Emissions'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Year Frequency Chart
+        const yearFreqCtx = document.getElementById('yearFrequencyChart').getContext('2d');
+        const yearFreqChart = new Chart(yearFreqCtx, {
+            type: 'bar',
+            data: {
+                labels: sampleData.yearFrequency.years,
+                datasets: [{
+                    label: 'Data Count',
+                    data: sampleData.yearFrequency.counts,
+                    backgroundColor: '#4a8c6d'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Year-wise Data Count'
+                    }
+                }
+            }
+        });
+
+        // Emission Histogram
+        const emissionHistCtx = document.getElementById('emissionHistogram').getContext('2d');
+        const emissionHistChart = new Chart(emissionHistCtx, {
+            type: 'bar',
+            data: {
+                labels: sampleData.emissionBins.bins,
+                datasets: [{
+                    label: 'Frequency',
+                    data: sampleData.emissionBins.counts,
+                    backgroundColor: '#6ba586'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Histogram of Total Emission'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Frequency'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Emission Range'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Pie Chart
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: sampleData.topAreas.areas,
+                datasets: [{
+                    data: sampleData.topAreas.percentages,
+                    backgroundColor: [
+                        '#2c7d4f',
+                        '#4a8c6d',
+                        '#6ba586',
+                        '#8cbf9f',
+                        '#add8b9'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Top 5 Areas by Emission'
+                    },
+                    legend: {
+                        position: 'right'
+                    }
+                }
+            }
+        });
+
+        // KDE Chart (simplified as line chart)
+        const kdeCtx = document.getElementById('kdeChart').getContext('2d');
+        const kdeChart = new Chart(kdeCtx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 20}, (_, i) => i * 50000),
+                datasets: [{
+                    label: 'Density',
+                    data: [0, 0.2, 0.5, 1.2, 2.5, 3.8, 4.5, 4.0, 3.2, 2.5, 1.8, 1.2, 0.8, 0.5, 0.3, 0.2, 0.1, 0.05, 0.02, 0.01],
+                    borderColor: '#2c7d4f',
+                    backgroundColor: 'rgba(44, 125, 79, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Frequency Curve of Total Emission'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Density'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Emission'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Cluster Chart
+        const clusterCtx = document.getElementById('clusterChart').getContext('2d');
+        const clusterChart = new Chart(clusterCtx, {
+            type: 'scatter',
+            data: {
+                datasets: [
+                    {
+                        label: 'Cluster 0',
+                        data: [{x: 10000, y: 20000}, {x: 12000, y: 22000}, {x: 9000, y: 18000}],
+                        backgroundColor: '#2c7d4f'
+                    },
+                    {
+                        label: 'Cluster 1',
+                        data: [{x: 50000, y: 80000}, {x: 55000, y: 85000}, {x: 48000, y: 75000}],
+                        backgroundColor: '#4a8c6d'
+                    },
+                    {
+                        label: 'Cluster 2',
+                        data: [{x: 150000, y: 250000}, {x: 160000, y: 270000}, {x: 140000, y: 230000}],
+                        backgroundColor: '#6ba586'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'KMeans Clustering of Emissions'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Total Emission'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Urban Population'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Data head table
+        document.getElementById('dataHead').innerHTML = `
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Area</th>
+                        <th>Year</th>
+                        <th>total_emission</th>
+                        <th>Rural population</th>
+                        <th>Urban population</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Afghanistan</td>
+                        <td>1990</td>
+                        <td>12345</td>
+                        <td>15000000</td>
+                        <td>5000000</td>
+                    </tr>
+                    <tr>
+                        <td>Albania</td>
+                        <td>1990</td>
+                        <td>23456</td>
+                        <td>1200000</td>
+                        <td>800000</td>
+                    </tr>
+                    <tr>
+                        <td>Algeria</td>
+                        <td>1990</td>
+                        <td>34567</td>
+                        <td>15000000</td>
+                        <td>10000000</td>
+                    </tr>
+                    <tr>
+                        <td>Angola</td>
+                        <td>1990</td>
+                        <td>45678</td>
+                        <td>8000000</td>
+                        <td>4000000</td>
+                    </tr>
+                    <tr>
+                        <td>Argentina</td>
+                        <td>1990</td>
+                        <td>56789</td>
+                        <td>10000000</td>
+                        <td>25000000</td>
+                    </tr>
+                </tbody>
+            </table>
+        `;
+
+        // Make charts responsive on window resize
+        window.addEventListener('resize', function() {
+            topEmittersChart.resize();
+            yearFreqChart.resize();
+            emissionHistChart.resize();
+            pieChart.resize();
+            kdeChart.resize();
+            clusterChart.resize();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,925 @@
+/* Variables */
+:root {
+    --primary-color: #00aeff;
+    --secondary-color: #0a192f;
+    --accent-color: #64ffda;
+    --lightest-navy: #233554;
+    --slate: #8892b0;
+    --light-slate: #a8b2d1;
+    --lightest-slate: #ccd6f6;
+    --white-color: #ffffff;
+    --font-primary: 'Poppins', sans-serif;
+    --font-secondary: 'Montserrat', sans-serif;
+    --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --primary-color-rgb: 0, 174, 255;
+    --accent-color-rgb: 100, 255, 218;
+    --secondary-color-rgb: 10, 25, 47;
+}
+
+/* Base Styles */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color) var(--secondary-color);
+}
+html::-webkit-scrollbar { width: 8px; }
+html::-webkit-scrollbar-track { background: var(--secondary-color); }
+html::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 10px;
+    border: 2px solid var(--secondary-color);
+}
+body {
+    font-family: var(--font-primary);
+    color: var(--light-slate);
+    background-color: var(--secondary-color);
+    overflow-x: hidden;
+    line-height: 1.7;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-secondary);
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    line-height: 1.3;
+    color: var(--lightest-slate);
+}
+h1 { font-weight: 900;}
+h2 { font-weight: 800;}
+p { margin-bottom: 1rem; color: var(--slate); }
+a {
+    text-decoration: none;
+    color: var(--accent-color);
+    transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
+}
+a:hover {
+    color: var(--accent-color);
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+ul { list-style: none; margin: 0; padding: 0; }
+img { max-width: 100%; height: auto; border-radius: 8px; }
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.75rem;
+    font-size: 15px;
+    font-family: var(--font-primary);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: none;
+    border-radius: 4px;
+    transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    background-color: transparent;
+}
+.btn:hover {
+    background-color: rgba(var(--accent-color-rgb), 0.1);
+    box-shadow: 0 0 10px rgba(var(--accent-color-rgb), 0.3);
+    transform: translateY(-3px);
+}
+.btn-primary {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border-color: var(--accent-color);
+}
+.btn-primary:hover {
+    background-color: rgba(var(--accent-color-rgb), 0.8);
+    color: var(--secondary-color);
+    border-color: rgba(var(--accent-color-rgb), 0.8);
+}
+.btn-outline-accent {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    background-color: transparent;
+}
+.btn-outline-accent:hover {
+    background-color: rgba(var(--accent-color-rgb), 0.1);
+    color: var(--accent-color);
+}
+
+.section-padding { padding: 100px 0; }
+@media (max-width: 768px) { .section-padding { padding: 80px 0; } }
+@media (max-width: 576px) { .section-padding { padding: 60px 0; } }
+
+/* Global Section Title Style */
+.section-title { position: relative; margin-bottom: 60px; text-align: left; }
+.section-title h2 {
+    display: flex; align-items: center; position: relative;
+    margin: 10px 0 40px; width: 100%;
+    font-size: clamp(26px, 5vw, 32px); white-space: nowrap;
+    color: var(--lightest-slate); font-weight: 700;
+}
+.section-title h2::before { /* Numbers removed from here for titles too unless desired */
+    position: relative; bottom: 0px; 
+    /* counter-increment: section; */ /* Uncomment if you want section numbers */
+    /* content: "0" counter(section) "."; */ /* Uncomment if you want section numbers */
+    margin-right: 10px;
+    color: var(--accent-color); font-family: var(--font-primary);
+    font-size: clamp(18px, 3vw, 22px); font-weight: 400;
+}
+.section-title h2::after {
+    content: ""; display: block; position: relative; top: 0px;
+    width: 200px; height: 1px; margin-left: 20px;
+    background-color: var(--lightest-navy);
+}
+@media (max-width: 768px) { .section-title h2::after { width: 100px; } }
+@media (max-width: 576px) {
+    .section-title h2::after { display: none; }
+    .section-title h2 { justify-content: center; text-align: center;}
+    .section-title h2::before { margin-right: 5px;}
+}
+.title-bg { display: none; }
+/* body { counter-reset: section; } */ /* Uncomment if using section numbers */
+
+/* Preloader */
+.preloader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: var(--secondary-color);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 99999; opacity: 1;
+    transition: opacity 0.5s ease-out 0.5s, visibility 0.5s ease-out 0.5s;
+}
+.preloader.loaded { opacity: 0; visibility: hidden; }
+
+.dots-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dots-loader div {
+    width: 12px;
+    height: 12px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    margin: 0 5px;
+    animation: dots-pulse 1.4s infinite ease-in-out both;
+}
+.dots-loader div:nth-child(1) { animation-delay: -0.32s; }
+.dots-loader div:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes dots-pulse {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1.0); }
+}
+
+
+/* Navigation */
+.navbar {
+    padding: 20px 0; transition: all 0.3s ease-in-out;
+    background-color: transparent; height: 100px; box-shadow: none;
+}
+.navbar.scrolled {
+    padding: 15px 0;
+    background-color: rgba(var(--secondary-color-rgb), 0.85);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px -10px rgba(2,12,27,0.7);
+    height: 70px;
+}
+.navbar-brand {
+    font-size: 28px; font-weight: 700; color: var(--accent-color);
+    letter-spacing: 0.5px; transition: transform 0.3s ease;
+}
+.navbar-brand:hover { transform: scale(1.05); color: var(--accent-color); }
+
+.navbar .navbar-nav .nav-link {
+    color: var(--lightest-slate); font-size: 14px;
+    font-family: var(--font-primary); font-weight: 400;
+    padding: 10px 15px; position: relative;
+    /* counter-increment: nav-item; */ /* Removed for nav item numbers */
+}
+/* Removed ::before rule that added nav item numbers */
+/*
+.navbar .navbar-nav .nav-link::before {
+    content: "0" counter(nav-item) "."; 
+    margin-right: 5px;
+    color: var(--accent-color); font-size: 13px;
+}
+*/
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link.active { color: var(--accent-color); }
+.navbar-dark .navbar-nav .nav-link::after { content: none; } /* Bootstrap 4 specific, might not be needed for BS5 */
+.navbar-toggler { border: none; padding: 0; font-size: 24px; color: var(--accent-color); }
+.navbar-toggler:focus { box-shadow: none; }
+.navbar-collapse { transition: background-color 0.3s ease; }
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background-color: var(--lightest-navy); padding: 20px;
+        border-radius: 4px; margin-top: 10px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    .navbar .navbar-nav .nav-link { color: var(--lightest-slate); padding: 12px 0; }
+    .navbar .navbar-nav .nav-link:hover,
+    .navbar .navbar-nav .nav-link.active { color: var(--accent-color); }
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative; height: 100vh; min-height: 650px;
+    background-color: var(--secondary-color);
+    display: flex; align-items: center; justify-content: center;
+    text-align: left; overflow: hidden; padding: 0 20px;
+}
+#particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; }
+.hero-content { position: relative; z-index: 2; max-width: 1000px; }
+.hero-content .intro-text {
+    color: var(--accent-color); font-family: var(--font-primary);
+    font-size: clamp(14px, 3vw, 18px); font-weight: 400;
+    margin-bottom: 20px; letter-spacing: 0.5px;
+}
+.hero-content h1.name {
+    font-size: clamp(40px, 8vw, 70px); font-weight: 800;
+    color: var(--lightest-slate); margin-bottom: 5px; line-height: 1.1;
+}
+.hero-content h2.tagline {
+    font-size: clamp(30px, 7vw, 60px); font-weight: 700;
+    color: var(--slate); margin-bottom: 25px; line-height: 1.1;
+}
+.hero-content h2 .typed-text-wrapper span.typed { color: var(--accent-color); }
+.hero-content .typed-cursor { color: var(--accent-color); font-weight: 300; }
+.hero-content .brief-intro {
+    font-size: clamp(16px, 2.5vw, 18px); color: var(--slate);
+    max-width: 600px; margin-bottom: 40px; line-height: 1.6;
+}
+.hero-buttons .btn { margin-right: 15px; margin-bottom: 10px;}
+.profile-image-container { display: none; } /* This was in original CSS, kept it */
+
+/* -------------------------------------------------------------- */
+
+/* Social links - fixed */
+.social-links-fixed {
+    position: fixed; bottom: 0; left: 40px; z-index: 10;
+    display: flex; flex-direction: column; align-items: center;
+}
+.social-links-fixed::after {
+    content: ''; display: block; width: 1px; height: 90px;
+    margin: 0px auto; background-color: var(--light-slate);
+}
+.social-links-fixed ul { padding: 0; margin: 0; list-style: none; }
+.social-links-fixed li { margin: 10px 0; }
+.social-links-fixed a { padding: 10px; color: var(--light-slate); font-size: 20px; transition: all 0.3s ease; }
+.social-links-fixed a:hover { color: var(--accent-color); transform: translateY(-3px); }
+.email-fixed {
+    position: fixed; bottom: 0; right: 40px; z-index: 10;
+    display: flex; flex-direction: column; align-items: center;
+}
+.email-fixed::after {
+    content: ''; display: block; width: 1px; height: 90px;
+    margin: 0px auto; background-color: var(--light-slate);
+}
+.email-fixed a {
+    margin: 20px auto; padding: 10px; font-family: var(--font-primary);
+    font-size: 13px; letter-spacing: 0.1em; writing-mode: vertical-rl;
+    color: var(--light-slate); transition: all 0.3s ease;
+}
+.email-fixed a:hover { color: var(--accent-color); transform: translateY(-3px); }
+@media (max-width: 768px) { .social-links-fixed, .email-fixed { display: none; } }
+
+/* About Section */
+/* About Section */
+/* About Section */
+#about .row { align-items: flex-start; }
+.about-content { max-width: 600px; }
+.about-content p { margin-bottom: 15px; font-size: 17px; }
+.about-content .skills-list {
+    display: grid; grid-template-columns: repeat(2, minmax(140px, 200px));
+    gap: 0px 10px; padding: 0px; margin: 20px 0px 0px;
+    overflow: hidden; list-style: none;
+}
+.about-content .skills-list li {
+    position: relative; margin-bottom: 10px; padding-left: 20px;
+    font-family: var(--font-primary); font-size: 14px; color: var(--slate);
+}
+.about-content .skills-list li::before {
+    content: "▹"; position: absolute; left: 0px;
+    color: var(--accent-color); font-size: 16px; line-height: 18px;
+}
+
+.about-image-wrapper {
+    position: relative;
+    width: 280px;  /* Or your chosen diameter */
+    height: 280px; /* Must be equal to width */
+    margin: 0 auto;
+}
+
+.about-image-wrapper .img-fluid {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease-out;
+}
+
+/* --- MODIFIED SECTION FOR THE ACCENT BORDER --- */
+.about-image-wrapper::after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 50%; /* Keep it circular */
+    border: 2px solid var(--accent-color); /* Your accent border style */
+    z-index: 0; /* Behind the main image */
+    transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
+    box-sizing: border-box; /* Important for sizing with borders */
+
+    /* Make the border concentric and slightly larger than the image */
+    width: calc(100% + 10px);  /* e.g., 5px bigger on each side (10px total) */
+    height: calc(100% + 10px); /* e.g., 5px bigger on each side (10px total) */
+    top: -5px;                 /* Offset by half of the added width/height */
+    left: -5px;                /* Offset by half of the added width/height */
+}
+/* --- END OF MODIFIED SECTION --- */
+
+.about-image-wrapper:hover .img-fluid { transform: translate(-5px, -5px); }
+.about-image-wrapper:hover::after { transform: translate(5px, 5px); }
+
+.about-experience { display: none; }
+.about-info { margin-top: 20px; }
+.about-info li { margin-bottom: 10px; font-size: 15px; color: var(--slate); }
+.about-info li span { font-weight: 500; color: var(--lightest-slate); min-width: 70px; display: inline-block; }
+
+
+/* Services Section */
+.service-card {
+    background-color: var(--lightest-navy); padding: 2rem 1.75rem;
+    border-radius: 4px; box-shadow: none; margin-bottom: 20px;
+    transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1); height: 100%;
+}
+.service-card:hover { transform: translateY(-7px); box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7); }
+.service-icon { font-size: 36px; color: var(--accent-color); margin-bottom: 25px; transition: transform 0.3s ease; }
+.service-card:hover .service-icon { transform: scale(1.1) rotate(-5deg); }
+.service-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 15px; color: var(--lightest-slate); }
+.service-card p { font-size: 15px; color: var(--light-slate); line-height: 1.6; }
+.service-shape { display: none; } /* This was in original CSS, kept it */
+
+/* Portfolio Section */
+.portfolio-filter { display: flex; justify-content: center; margin-bottom: 40px; flex-wrap: wrap; }
+.portfolio-filter li {
+    padding: 8px 18px; margin: 5px; font-size: 14px;
+    font-family: var(--font-primary); font-weight: 400;
+    color: var(--light-slate); cursor: pointer; border-radius: 4px;
+    transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
+    border: 1px solid transparent;
+}
+.portfolio-filter li.active,
+.portfolio-filter li:hover {
+    background-color: rgba(var(--accent-color-rgb), 0.1);
+    color: var(--accent-color); border-color: var(--accent-color);
+}
+.portfolio-card {
+    position: relative; border-radius: 4px; overflow: hidden;
+    margin-bottom: 20px; background-color: var(--lightest-navy);
+    transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
+    height: 300px; display: flex; flex-direction: column;
+    justify-content: space-between;
+}
+.portfolio-card:hover { transform: translateY(-7px); box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7); }
+.portfolio-content-upper { padding: 25px 25px 0; }
+.portfolio-content-upper .project-icon { font-size: 36px; color: var(--accent-color); }
+.portfolio-content-upper h3 {
+    font-size: 20px; font-weight: 600; margin-top: 20px;
+    margin-bottom: 10px; color: var(--lightest-slate);
+}
+.portfolio-content-upper h3 a { color: var(--lightest-slate); }
+.portfolio-content-upper h3 a:hover { color: var(--accent-color); }
+.portfolio-content-upper p.project-description {
+    font-size: 15px; color: var(--light-slate);
+    line-height: 1.5; margin-bottom: 15px;
+}
+.project-tech-list { display: flex; flex-wrap: wrap; padding: 0 25px 25px; margin-top: auto; }
+.project-tech-list li {
+    margin-right: 15px; margin-bottom: 7px;
+    font-family: var(--font-primary); font-size: 12px;
+    color: var(--slate); line-height: 1.75;
+}
+/* .portfolio-popup was present but seemed unused in HTML, kept for potential future use */
+.portfolio-popup { display: inline-block; margin-left: auto; color: var(--light-slate); font-size: 20px; }
+.portfolio-popup:hover { color: var(--accent-color); }
+
+/* Testimonials Section */
+.testimonial-slider .slick-dots { bottom: -35px; }
+.testimonial-slider .slick-dots li button:before { font-size: 10px; color: var(--accent-color); opacity: 0.4; }
+.testimonial-slider .slick-dots li.slick-active button:before { opacity: 1; }
+.testimonial-item { padding: 0 10px; }
+.testimonial-content {
+    background-color: var(--lightest-navy); padding: 30px;
+    border-radius: 4px; text-align: center; position: relative;
+    margin: 15px 0; min-height: 300px; display: flex;
+    flex-direction: column; justify-content: center;
+}
+.testimonial-content::before {
+    content: "\f10d"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+    font-size: 30px; color: var(--accent-color); opacity: 0.3;
+    position: absolute; top: 15px; left: 20px;
+}
+.testimonial-img {
+    width: 80px; height: 80px; border-radius: 50%;
+    margin: 0 auto 20px; overflow: hidden;
+    border: 3px solid var(--accent-color);
+}
+.testimonial-img img { border-radius: 50%; }
+.testimonial-content p { font-style: italic; font-size: 16px; margin-bottom: 20px; color: var(--light-slate); }
+.testimonial-content h4 { font-size: 18px; margin-bottom: 3px; color: var(--lightest-slate); }
+.testimonial-content span { display: block; color: var(--accent-color); margin-bottom: 15px; font-size: 13px; }
+.rating { color: #ffc107; font-size: 14px; }
+
+/* Contact Section */
+#contact .section-title h2 { text-align: center; justify-content: center; }
+#contact .section-title h2::after { display: none; } /* Ensure title line is not shown for centered title */
+.contact-content-wrapper { max-width: 700px; margin: 0 auto; text-align: center; }
+.contact-content-wrapper h3 { font-size: clamp(24px, 5vw, 30px); color: var(--lightest-slate); margin-bottom: 15px; }
+.contact-content-wrapper p { color: var(--slate); margin-bottom: 30px; font-size: 17px; }
+.contact-options-buttons .btn { padding: 0.8rem 1.5rem; font-size: 15px; }
+@media (max-width: 575.98px) {
+    .contact-options-buttons { flex-direction: column; }
+    .contact-options-buttons .btn { width: 100%; margin-right: 0 !important; }
+    .contact-options-buttons .btn:not(:last-child) { margin-bottom: 1rem !important; }
+}
+#contactForm .form-control {
+    background-color: var(--lightest-navy); border: 1px solid var(--lightest-navy);
+    color: var(--lightest-slate); border-radius: 4px; padding: 0.75rem 1rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+#contactForm .form-control::placeholder { color: var(--slate); opacity: 0.7; }
+#contactForm .form-control:focus {
+    background-color: var(--lightest-navy); color: var(--lightest-slate);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.2rem rgba(var(--accent-color-rgb), 0.25);
+}
+#contactForm textarea.form-control { min-height: 150px; }
+#contactForm .form-message-loading,
+#contactForm .form-message-error,
+#contactForm .form-message-sent {
+    display: none; margin-top: 15px; padding: 10px;
+    border-radius: 4px; font-size: 15px; text-align: left;
+}
+#contactForm .form-message-sent {
+    background-color: rgba(var(--accent-color-rgb), 0.1);
+    color: var(--accent-color); border: 1px solid var(--accent-color);
+}
+#contactForm .form-message-error {
+    background-color: rgba(220, 53, 69, 0.1); color: #dc3545; border: 1px solid #dc3545;
+}
+#contactForm .form-message-loading { color: var(--light-slate); }
+
+/* Footer */
+.footer {
+    background-color: var(--secondary-color); padding: 25px 0;
+    color: var(--slate); text-align: center;
+    font-family: var(--font-primary); font-size: 13px;
+}
+.footer-social-inline { display: none; }
+@media (max-width: 768px) {
+    .footer-social-inline { display: flex; justify-content: center; margin-bottom: 15px; }
+    .footer-social-inline a { color: var(--light-slate); margin: 0 12px; font-size: 20px; }
+    .footer-social-inline a:hover { color: var(--accent-color); }
+}
+.footer a { color: var(--accent-color); }
+.footer a:hover { text-decoration: underline; }
+.copyright p { color: var(--slate); font-size: 13px; margin-bottom: 0; }
+.copyright p i.fa-code { color: var(--accent-color); }
+.footer-logo { display: none; } /* This was in original CSS, kept it */
+
+/* Back to Top */
+.back-to-top {
+    position: fixed; bottom: 20px; right: 20px; width: 40px; height: 40px;
+    background-color: rgba(var(--accent-color-rgb),0.1); color: var(--accent-color);
+    border-radius: 4px; display: flex; justify-content: center; align-items: center;
+    font-size: 18px; z-index: 999; opacity: 0; visibility: hidden;
+    transition: all 0.3s ease; border: 1px solid var(--accent-color);
+}
+.back-to-top.active { opacity: 1; visibility: visible; }
+.back-to-top:hover { background-color: rgba(var(--accent-color-rgb),0.2); transform: translateY(-3px); }
+
+/* AOS animation overrides/additions */
+[data-aos="fade-up-custom"] { opacity: 0; transform: translateY(30px); transition-property: opacity, transform; }
+[data-aos="fade-up-custom"].aos-animate { opacity: 1; transform: translateY(0); }
+[data-aos="zoom-in-custom"] { opacity: 0; transform: scale(0.9); transition-property: opacity, transform; }
+[data-aos="zoom-in-custom"].aos-animate { opacity: 1; transform: scale(1); }
+
+/* Magnific Popup Styling */
+.mfp-bg { background: rgba(var(--secondary-color-rgb), 0.9); }
+.mfp-figure { box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+.mfp-image-holder .mfp-close, .mfp-iframe-holder .mfp-close {
+    color: var(--lightest-slate); opacity: 0.7; font-size: 30px; padding-right: 5px;
+}
+.mfp-image-holder .mfp-close:hover, .mfp-iframe-holder .mfp-close:hover { opacity: 1; color: var(--accent-color); }
+.mfp-title { color: var(--lightest-slate); padding-right: 35px; }
+.mfp-counter { color: var(--slate); }
+.mfp-arrow { opacity: 0.6; transition: opacity 0.2s ease; }
+.mfp-arrow:hover { opacity: 1; }
+.mfp-arrow-left:before { border-right-color: var(--accent-color); }
+.mfp-arrow-right:before { border-left-color: var(--accent-color); }
+
+/* Animation for hero text elements (already present in your original JS, just ensuring CSS doesn't conflict) */
+.hero-content > * { opacity: 0; transform: translateY(20px); }
+
+/* Note: The @import for Google Fonts was removed from here because it's already linked in the HTML <head>. */
+
+
+
+
+/* ====================== */
+/* RESPONSIVE MEDIA QUERIES */
+/* ====================== */
+
+/* ===================================================================
+    RESPONSIVE STYLES - Add these to the end of your CSS
+====================================================================== */
+
+/* ===================================================================
+    RESPONSIVE STYLES - Add these to the end of your CSS
+====================================================================== */
+
+/*
+  Standard Breakpoints Overview:
+  - Extra Large (XL) >= 1200px (Large Desktops, Laptops)
+  - Large (LG) >= 992px (Desktops, Small Laptops, Landscape Tablets)
+  - Medium (MD) >= 768px (Tablets, Large Phones Landscape)
+  - Small (SM) >= 576px (Phones Landscape & Portrait)
+  - Extra Small (XS) < 576px (Phones Portrait)
+
+  Custom Breakpoints Added for Finer Control on Mobile:
+  - < 480px (Smaller Phones)
+  - < 360px (Very Small Phones like iPhone SE 1st Gen)
+  - <= 320px (Extremely Narrow Phones like Galaxy Fold portrait, older small phones)
+*/
+
+/* Large devices (Desktops, landscape tablets - adjusting from default) */
+@media (max-width: 1199.98px) { /* Approx. < 1200px */
+    .hero-content .brief-intro {
+        max-width: 550px;
+    }
+    .about-image-wrapper {
+        width: 260px;
+        height: 260px;
+    }
+    .about-image-wrapper::after {
+        width: calc(100% + 8px);
+        height: calc(100% + 8px);
+        top: -4px;
+        left: -4px;
+    }
+}
+
+/* Medium devices (Tablets, large phones in landscape) */
+@media (max-width: 991.98px) { /* Approx. < 992px */
+    body {
+        font-size: 15px;
+        line-height: 1.65;
+    }
+
+    h1 { font-size: clamp(38px, 6vw, 60px); }
+    h2 { font-size: clamp(28px, 5vw, 42px); }
+    h3 { font-size: 1.7rem; }
+
+    .navbar.scrolled { height: 65px; }
+    .navbar-brand { font-size: 26px; }
+
+    .hero-section {
+        min-height: 600px;
+        padding: 0 30px;
+    }
+    .hero-content { text-align: center; }
+    .hero-content .brief-intro {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 90%;
+    }
+    .hero-buttons { justify-content: center; }
+    .hero-buttons .btn {
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .about-content { margin-bottom: 40px; }
+    .about-image-wrapper {
+        margin: 0 auto 30px auto;
+        width: 240px;
+        height: 240px;
+    }
+    .about-image-wrapper:hover .img-fluid { transform: translate(-4px, -4px); }
+    .about-image-wrapper:hover::after { transform: translate(4px, 4px); }
+
+    .portfolio-card {
+        height: auto;
+        min-height: 280px;
+    }
+    .portfolio-content-upper h3 { font-size: 19px; }
+    .testimonial-content { min-height: auto; padding: 25px; }
+}
+
+/* Small devices (Landscape phones, small tablets) */
+@media (max-width: 767.98px) { /* Approx. < 768px */
+    /* Your existing .section-padding, .section-title, .social-links-fixed, .email-fixed, .footer-social-inline rules from original CSS will also apply */
+    body { line-height: 1.6; }
+    h1, .hero-content h1.name { font-size: clamp(34px, 10vw, 48px); }
+    h2, .hero-content h2.tagline { font-size: clamp(26px, 8vw, 40px); }
+    h3 { font-size: 1.5rem; }
+    p, .hero-content .brief-intro { font-size: clamp(15px, 4vw, 17px); }
+
+    .btn {
+        padding: 0.7rem 1.6rem;
+        font-size: 14px;
+    }
+
+    .navbar { padding: 15px 0; }
+    .navbar-collapse { margin-top: 15px; }
+
+    .hero-section {
+        height: auto;
+        min-height: auto;
+        padding-top: 100px;
+        padding-bottom: 60px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .hero-content .intro-text {
+        font-size: clamp(13px, 3.5vw, 16px);
+        margin-bottom: 15px;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        width: 100%; /* Ensure button container doesn't overflow */
+    }
+    .hero-buttons .btn {
+        width: 80%;
+        max-width: 320px;
+        margin-right: 0;
+        margin-left: 0;
+    }
+    .hero-buttons .btn:not(:last-child) { margin-bottom: 15px; }
+
+    .section-title h2 {
+        white-space: normal; /* Allow section titles to wrap */
+    }
+
+    .about-content { text-align: center; }
+    .about-content .skills-list {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 400px;
+    }
+    .about-content .skills-list li {
+        font-size: 13.5px;
+        text-align: left;
+    }
+    .about-image-wrapper {
+        width: 200px;
+        height: 200px;
+    }
+     .about-image-wrapper::after {
+        width: calc(100% + 6px);
+        height: calc(100% + 6px);
+        top: -3px;
+        left: -3px;
+        border-width: 1.5px;
+    }
+
+    .service-card { padding: 1.75rem 1.5rem; text-align: center; }
+    .service-icon { font-size: 32px; margin-bottom: 20px; }
+    .service-card h3 { font-size: 18px; }
+    .service-card p { font-size: 14.5px; }
+
+    .portfolio-filter { margin-bottom: 30px; }
+    .portfolio-filter li { padding: 7px 14px; font-size: 13.5px; margin: 4px; }
+    .portfolio-content-upper { padding: 20px; }
+    .project-tech-list { padding: 0 20px 20px; }
+    .project-tech-list li { font-size: 11.5px; margin-right: 12px; }
+
+    .testimonial-slider .slick-dots { bottom: -30px; }
+    .testimonial-img { width: 70px; height: 70px; }
+    .testimonial-content p { font-size: 15px; }
+
+    .contact-content-wrapper p { font-size: 16px; }
+    #contactForm textarea.form-control { min-height: 130px; }
+}
+
+/* Extra small devices (Phones Portrait) */
+@media (max-width: 575.98px) { /* Approx. < 576px */
+    /* Your existing .section-padding, .section-title, .contact-options-buttons rules from original CSS will also apply */
+    body { font-size: 14px; }
+
+    .navbar-brand { font-size: 22px; }
+    .navbar-toggler { font-size: 20px; }
+    .navbar .navbar-nav .nav-link { font-size: 13.5px; padding: 10px 0; }
+
+    .hero-section { padding: 80px 15px 50px 15px; }
+    .hero-content h1.name { font-size: clamp(30px, 11vw, 40px); }
+    .hero-content h2.tagline { font-size: clamp(22px, 9vw, 34px); margin-bottom: 15px;}
+    .hero-content .brief-intro { font-size: clamp(14px, 4.2vw, 15px); margin-bottom: 25px; max-width: 95%; }
+    .hero-buttons .btn {
+        padding: 0.65rem 1.4rem;
+        font-size: 13.5px;
+        width: 90%;
+    }
+
+    /* .section-title h2 is already handled at 767.98px for white-space, other rules here are from your original CSS */
+
+    .about-content p { font-size: 14.5px; }
+    .about-content .skills-list {
+        grid-template-columns: 1fr;
+        gap: 5px;
+        max-width: 250px;
+    }
+    .about-content .skills-list li { padding-left: 18px; font-size: 13px; }
+    .about-content .skills-list li::before { font-size: 15px; line-height: 17px; }
+    .about-image-wrapper {
+        width: 170px;
+        height: 170px;
+    }
+    .about-image-wrapper:hover .img-fluid { transform: translate(-3px, -3px); }
+    .about-image-wrapper:hover::after { transform: translate(3px, 3px); }
+    .about-info li { font-size: 14px; }
+
+    .service-card { margin-bottom: 15px; padding: 1.5rem 1.25rem;}
+    .service-icon { font-size: 30px; }
+    .service-card h3 { font-size: 17px; }
+
+    .portfolio-filter { justify-content: center; }
+    .portfolio-filter li { padding: 6px 10px; font-size: 13px; }
+    .portfolio-content-upper .project-icon { font-size: 28px; }
+    .portfolio-content-upper h3 { font-size: 17px; margin-top: 15px; }
+    .portfolio-content-upper p.project-description { font-size: 14px; margin-bottom: 12px; }
+    .project-tech-list { padding: 0 15px 15px; }
+}
+
+/* Smaller Phones */
+@media (max-width: 479.98px) { /* Approx. < 480px */
+    .section-padding { padding: 50px 0; }
+    .section-title { margin-bottom: 35px; }
+    .section-title h2 {
+        font-size: clamp(20px, 6vw, 26px);
+        margin: 5px 0 30px;
+    }
+    .section-title h2::before { font-size: clamp(15px, 4vw, 18px); }
+
+    .hero-section {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .hero-content h1.name { font-size: clamp(26px, 10vw, 36px); }
+    .hero-content h2.tagline { font-size: clamp(20px, 8vw, 30px); }
+    .hero-content .brief-intro { max-width: 100%; font-size: 13.5px; } /* Use 100% to fill padded parent */
+    .hero-buttons .btn { width: 95%; }
+
+    .about-image-wrapper {
+        width: 150px;
+        height: 150px;
+    }
+    .about-image-wrapper::after {
+        width: calc(100% + 5px);
+        height: calc(100% + 5px);
+        top: -2.5px;
+        left: -2.5px;
+    }
+
+    .portfolio-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .portfolio-filter li {
+        width: auto;
+        text-align: center;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
+    .portfolio-content-upper h3 { font-size: 16px; }
+    .portfolio-content-upper p.project-description { font-size: 13.5px;}
+
+    .testimonial-img { width: 60px; height: 60px; }
+    .testimonial-content p { font-size: 14px; }
+    .testimonial-content h4 { font-size: 15px; }
+
+    #contactForm .form-control { padding: 0.6rem 0.8rem; font-size: 13.5px; }
+    #contactForm textarea.form-control { min-height: 110px; }
+
+    .footer { font-size: 12.5px; padding: 20px 0; }
+    .footer-social-inline a { font-size: 18px; margin: 0 10px;}
+}
+
+/* Very Small Phones (e.g., iPhone SE 1st gen, smaller Androids) */
+@media (max-width: 359.98px) { /* Approx. < 360px */
+    body {
+        font-size: 13.5px;
+        line-height: 1.55;
+    }
+    .section-padding { padding: 40px 0; }
+    .section-title h2 { font-size: clamp(18px, 5.5vw, 24px); margin-bottom: 25px; }
+
+    .hero-section {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .hero-content h1.name { font-size: clamp(22px, 9vw, 30px); }
+    .hero-content h2.tagline { font-size: clamp(18px, 7vw, 26px); }
+    .hero-content .brief-intro { font-size: 13px; max-width: 100%; }
+    .hero-buttons .btn {
+        width: 100%; /* Full width within its padded container */
+        padding: 0.7rem 1rem;
+        font-size: 13px;
+    }
+
+    .btn { /* General button adjustments for this size */
+        padding: 0.6rem 1rem;
+        font-size: 12.5px;
+    }
+
+    .about-image-wrapper {
+        width: 120px;
+        height: 120px;
+    }
+    .about-image-wrapper::after {
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        top: -2px;
+        left: -2px;
+        border-width: 1px;
+    }
+    .about-image-wrapper:hover .img-fluid { transform: translate(-2px, -2px); }
+    .about-image-wrapper:hover::after { transform: translate(2px, 2px); }
+
+    .portfolio-filter li { padding: 5px 8px; font-size: 12.5px; }
+    #contactForm .form-control { padding: 0.5rem 0.7rem; font-size: 13px; }
+}
+
+/* Extremely Narrow Screens (e.g. Galaxy Fold portrait, common test width 320px) */
+@media (max-width: 320px) {
+    body {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+    .section-padding { padding: 35px 0; }
+
+    .hero-section {
+        padding-top: 70px;
+        padding-bottom: 40px;
+        padding-left: 8px;  /* Further reduce horizontal padding */
+        padding-right: 8px; /* Further reduce horizontal padding */
+    }
+    .hero-content .intro-text {
+        font-size: clamp(12px, 3vw, 13px);
+        margin-bottom: 10px;
+    }
+    .hero-content h1.name { font-size: clamp(20px, 8vw, 28px); }
+    .hero-content h2.tagline { font-size: clamp(17px, 6.5vw, 24px); }
+    .hero-content .brief-intro {
+        font-size: 12.5px;
+        line-height: 1.55;
+    }
+    .hero-buttons .btn {
+        padding: 0.6rem 0.8rem;
+        font-size: 12.5px;
+    }
+
+    .section-title h2 {
+        font-size: clamp(17px, 5vw, 22px);
+        margin-bottom: 20px;
+    }
+    .section-title h2::before {
+        font-size: clamp(14px, 3.5vw, 16px);
+        margin-right: 3px;
+    }
+
+    .about-content p { font-size: 13px; }
+    .about-content .skills-list li { font-size: 12px; padding-left: 15px; }
+    .about-content .skills-list li::before { font-size: 13px; line-height: 15px; }
+    .about-image-wrapper {
+        width: 110px;
+        height: 110px;
+    }
+    .about-image-wrapper::after {
+        width: calc(100% + 3px);
+        height: calc(100% + 3px);
+        top: -1.5px;
+        left: -1.5px;
+        border-width: 1px;
+    }
+
+    .service-card { padding: 1.2rem 1rem; }
+    .service-icon { font-size: 26px; margin-bottom: 15px; }
+    .service-card h3 { font-size: 15px; }
+    .service-card p { font-size: 12.5px; }
+
+    .portfolio-filter li { padding: 4px 6px; font-size: 12px; }
+    .portfolio-content-upper .project-icon { font-size: 24px; }
+    .portfolio-content-upper h3 { font-size: 14.5px; }
+    .portfolio-content-upper p.project-description { font-size: 12.5px; }
+    .project-tech-list li { font-size: 10.5px; margin-right: 6px; }
+
+    #contactForm .form-control { padding: 0.5rem 0.6rem; font-size: 12.5px; }
+    #contactForm textarea.form-control { min-height: 100px; }
+
+    .footer { font-size: 11.5px; }
+    .footer-social-inline a { font-size: 17px; margin: 0 8px;}
+}
