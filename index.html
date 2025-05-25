@@ -52,11 +52,12 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div id="particles-js"></div>
-        <div class="container hero-content-container">
-            <div class="hero-content">
+<!-- Hero Section -->
+<section id="home" class="hero-section">
+    <div id="particles-js"></div>
+    <div class="container hero-content-container">
+        <div class="row align-items-center">
+            <div class="col-lg-7 col-md-12 hero-content" data-aos="fade-right" data-aos-delay="100">
                 <p class="intro-text" data-aos="fade-up" data-aos-delay="100">Hi, my name is</p>
                 <h1 class="name" data-aos="fade-up" data-aos-delay="200">Jainam Raninga.</h1>
                 <h2 class="tagline" data-aos="fade-up" data-aos-delay="300">I <span class="typed-text-wrapper"><span class="typed"></span></span></h2>
@@ -68,20 +69,26 @@
                     <a href="#contact" class="btn">Get In Touch</a>
                 </div>
             </div>
+            <div class="col-lg-5 col-md-12 d-flex justify-content-center" data-aos="fade-left" data-aos-delay="300">
+                <div class="hero-image-circle">
+                    <img src="Images/jainamimage.png" alt="Jainam Raninga" class="img-fluid rounded-circle">
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
+<!-- Fixed Social Links -->
+<aside class="social-links-fixed" data-aos="fade-right" data-aos-delay="1200" data-aos-offset="-200">
+    <ul>
+        <li><a href="https://github.com/Jainam672" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/jainam-raninga-3014102a7/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+    </ul>
+</aside>
+<aside class="email-fixed" data-aos="fade-left" data-aos-delay="1200" data-aos-offset="-200">
+    <a href="mailto:jainamraninga@gmail.com">jainamraninga@gmail.com</a>
+</aside>
 
-    <!-- Fixed Social Links -->
-    <aside class="social-links-fixed" data-aos="fade-right" data-aos-delay="1200" data-aos-offset="-200">
-        <ul>
-            <li><a href="https://github.com/Jainam672" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
-            <li><a href="https://www.linkedin.com/in/jainam-raninga-3014102a7/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
-        </ul>
-    </aside>
-    <aside class="email-fixed" data-aos="fade-left" data-aos-delay="1200" data-aos-offset="-200">
-        <a href="mailto:jainamraninga@gmail.com">jainamraninga@gmail.com</a>
-    </aside>
-
+<!-- About Section -->
 
 <!-- About Section -->
 <section id="about" class="section-padding">
@@ -89,38 +96,115 @@
         <div class="section-title" data-aos="fade-up-custom">
             <h2>About Me</h2>
         </div>
-        <div class="row">
-            <div class="col-lg-7 col-md-12 about-content" data-aos="fade-right" data-aos-duration="800">
-                <p>Hello! I'm Jainam, a budding tech enthusiast currently pursuing my Bachelor's in Technology, set to graduate in 2026. My journey in the world of tech is driven by a deep curiosity for data and a passion for building intuitive web experiences.</p>
-                <p>As a Data Scientist and Analyst, I enjoy uncovering patterns, deriving insights, and telling stories with data. Simultaneously, my skills as a Web Developer allow me to bring these insights and other creative ideas to life on the internet.</p>
-                <p>Here are a few technologies I've been working with recently:</p>
-                <ul class="skills-list">
-                    <li>Python (Pandas, NumPy, Scikit-learn)</li>
-                    <li>JavaScript</li>
-                    <li>SQL</li>
-                    <li>Bootstrap</li>
-                    <li>HTML & (S)CSS</li>
-                    <li>AWS</li>
-                    <li>Power BI</li>
-                    <li>Git & GitHub</li>
-                </ul>
-                 <ul class="about-info mt-4">
-                    <li><span>Name:</span> Jainam Raninga</li>
-                    <li><span>Age:</span> 20</li>
-                    <li><span>Degree:</span> Pursuing B.Tech (2026)</li>
-                    <li><span>Email:</span> <a href="mailto:jainamraninga@gmail.com">jainamraninga@gmail.com</a></li>
-                    <li><span>Phone:</span> <a href="tel:+918490848484">+91 84908 48484</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-5 col-md-12 mt-5 mt-lg-0 d-flex align-items-center justify-content-center" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
-                <div class="about-image-wrapper">
-                    <!-- Make sure this image exists. If it's a .png, change the extension. -->
-                    <img src="Images/jainamimage.png" alt="Jainam Raninga" class="img-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 col-md-11">
+                <div class="about-content" data-aos="fade-up" data-aos-duration="800">
+                    <p>I'm Jainam, a B.Tech student (2026) passionate about building data-driven web solutions. I bridge the gap between data science and full-stack development to create impactful applications.Highly motivated and detail-oriented Computer Science and Engineering student with a strong interest in Data Science and Data Analysis</p>
+                    
+                    <div class="skills-showcase mt-5">
+                        <div class="row">
+                            <!-- Web Development Skills -->
+                            <div class="col-md-4 skill-category">
+                                <div class="skill-card">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <h4>Web Development</h4>
+                                    <ul class="skill-items">
+                                        <li>HTML5 & CSS3</li>
+                                        <li>JavaScript (ES6+)</li>
+                                        <li>Bootstrap 5</li>
+                                        <li>J Query</li>
+                                        <li>PhP</li>
+                                        <li>SQL</li>
+                                        <li>Python</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Data Science Skills -->
+                            <div class="col-md-4 skill-category">
+                                <div class="skill-card">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-database"></i>
+                                    </div>
+                                    <h4>Data Science</h4>
+                                    <ul class="skill-items">
+                                        <li>Python (Pandas, NumPy)</li>
+                                        <li>Scikit-learn</li>
+                                        <li>SQL</li>
+                                        <li>Power BI</li>
+                                        <li>Matplotlib/Seaborn</li>
+                                        <li>Pandas</li>
+                                        <li>Data Cleaning</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Tools & Other Skills -->
+                            <div class="col-md-4 skill-category">
+                                <div class="skill-card">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-tools"></i>
+                                    </div>
+                                    <h4>Tools & Others</h4>
+                                    <ul class="skill-items">
+                                        <li>Git & GitHub</li>
+                                        <li>AWS (EC2, S3)</li>
+                                        <li>VS Code</li>
+                                        <li>Jupyter Notebooks</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-highlights mt-5">
+                        <h4 class="section-subtitle">Project Highlights</h4>
+                        
+                        <div class="project-card">
+                            <h5><i class="fas fa-leaf"></i> AgroFood Emissions Dashboard</h5>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Html & CSS</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">Bootstrap</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Matplotlib & seaborn</span>
+                                <span class="tech-tag">Pandas</span>
+                            </div>
+                            <p>Won 2nd prize in KICT innovation challenge for this emissions tracking system featuring interactive data visualizations.</p>
+                        </div>
+                        
+                        <div class="project-card">
+                            <h5><i class="fas fa-exclamation-triangle"></i> Disaster Info Aggregator</h5>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Html & CSS</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">Bootstrap</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">google-generativeai</span>
+                                <span class="tech-tag">parsel</span>
+                                <span class="tech-tag">Matplotlib & seaborn</span>
+                                <span class="tech-tag">concurrent.futures</span>
+                            </div>
+                            <p>Hackathon project aggregating real-time disaster data with geolocation services and alert notifications.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="personal-info mt-4">
+                        <ul class="about-info">
+                            <li><span>Name:</span> Jainam Raninga</li>
+                            <li><span>Education:</span> B.Tech (Expected 2026)</li>
+                            <li><span>Focus:</span> Data-Driven Web Solutions</li>
+                            <li><span>Contact:</span> <a href="mailto:jainamraninga@gmail.com">jainamraninga@gmail.com</a> | <a href="tel:+918490848484">+91 84908 48484</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 
     <!-- Services Section -->
     <section id="services" class="section-padding">
@@ -246,7 +330,7 @@
     <section id="testimonials" class="section-padding">
         <div class="container">
             <div class="section-title" data-aos="fade-up-custom">
-                <h2>Kind Words From Collaborators</h2>
+                <h2>Some Clint Works</h2>
             </div>
             <div class="row" data-aos="fade-up-custom" data-aos-delay="100">
                 <div class="col-12">
