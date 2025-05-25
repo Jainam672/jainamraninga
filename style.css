@@ -219,6 +219,8 @@ img { max-width: 100%; height: auto; border-radius: 8px; }
 }
 
 /* Hero Section */
+/* (Your existing CSS here) */
+
 .hero-section {
     position: relative; height: 100vh; min-height: 650px;
     background-color: var(--secondary-color);
@@ -246,9 +248,20 @@ img { max-width: 100%; height: auto; border-radius: 8px; }
     font-size: clamp(16px, 2.5vw, 18px); color: var(--slate);
     max-width: 600px; margin-bottom: 40px; line-height: 1.6;
 }
-.hero-buttons .btn { margin-right: 15px; margin-bottom: 10px;}
-.profile-image-container { display: none; } /* This was in original CSS, kept it */
+.hero-buttons .btn {
+    margin-right: 15px;
+    margin-bottom: 10px; /* This already helps with wrapping */
+    /* Vertically align icon and text if needed, though usually default is fine */
+    /* display: inline-flex;
+    align-items: center; */
+}
 
+/* NEW CSS for icon spacing */
+.hero-buttons .btn i {
+    margin-right: 8px; /* Adjust as needed for space between icon and text */
+}
+
+.profile-image-container { display: none; }
 /* -------------------------------------------------------------- */
 
 /* Social links - fixed */
